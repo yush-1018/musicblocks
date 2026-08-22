@@ -792,4 +792,18 @@ describe("StatusMatrix Widget", () => {
             expect(statusMatrix._statusTable).toBeDefined();
         });
     });
+
+    describe("Post-close and destroy safety", () => {
+        test("returns early without throwing when isOpen is false", () => {
+            statusMatrix.init(mockActivity);
+            statusMatrix.isOpen = false;
+            expect(() => statusMatrix.updateAll()).not.toThrow();
+        });
+
+        test("returns early without throwing when _statusTable is null or undefined", () => {
+            statusMatrix.init(mockActivity);
+            statusMatrix._statusTable = null;
+            expect(() => statusMatrix.updateAll()).not.toThrow();
+        });
+    });
 });
